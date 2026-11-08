@@ -1,0 +1,28 @@
+# ==============================================================================
+# AGENTICAI-FS — DEPENDENCIAS DEL PROYECTO
+# ==============================================================================
+
+# Infraestructura básica y procesamiento de datos
+pandas
+numpy
+python-dotenv
+pydantic
+scikit-learn
+scipy
+openpyxl
+
+# Framework de Agentes (LangChain & LangGraph)
+langchain
+langchain-core
+langchain-groq
+langgraph
+
+# Análisis estadístico, visualización y teoría de grafos
+statsmodels
+seaborn
+networkx
+python-louvain
+
+# Metaheurísticas, optimización multiobjetivo y ajuste de hiperparámetros
+pymoo
+optuna
