@@ -1,7 +1,19 @@
+cat << 'EOF' > .gitignore
 venv/ 
+env/
+ENV/
+.venv/
 __pycache__/ 
+*.py[cod]
+*$py.class
+.pytest_cache/
 *.pyc 
 data_processed/
 *.npy 
-*.csv 
+*.csv
+*.tsv
 .env
+.DS_Store
+.vscode/
+.idea/
+EOF
