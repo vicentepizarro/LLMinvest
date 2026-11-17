@@ -20,7 +20,11 @@ def preparar_dataset_benchmark(
     else:
         label_col = str(df.columns[6])
 
-    X = df.drop(columns=[label_col])
+    # 1. Identificar la variable objetivo (y) 
+    target_col = [c for c in df.columns if c.lower() in ["type", "class"]][0] 
+    y = df[target_col] 
+    # 2. Extraer X asegurando que SOLO contenga columnas numéricas  (excluye    'samples', 'type', etc.) 
+    X = df.drop(columns=[target_col]).select_dtypes(include=["number"])
 
     print(
         f"Dataset cargado correctamente: {X.shape[0]} muestras, {X.shape[1]} "
@@ -31,10 +35,10 @@ def preparar_dataset_benchmark(
     df.to_csv(expr_path, index=False)
 
     print("Calculando matriz de correlación de Pearson entre genes...")
-    M_corr = X.corr(method="pearson").abs()
+    M_corr = X.corr(method="pearson").abs().astype("float32")
 
     corr_path = os.path.join(output_dir, "M_corr.npy")
-    np.save(corr_path, M_corr.values)
+    np.save("data:processed/M_corr.npy", M_corr.to_numpy())
 
     print(
         f"Archivos guardados en: '{output_dir}'\n -"
@@ -45,7 +49,7 @@ def preparar_dataset_benchmark(
 
 
 if __name__ == "__main__":
-    DATASET_PATH = "/home/vicente/Descargas/Colorectal_GSE44861.csv" # Ruta de tu CSV CuMiDA
+    DATASET_PATH = "/home/linuxvixo/Escritorio/datasets/Prostate_GSE11682.csv" # Ruta de tu CSV CuMiDA
     if os.path.exists(DATASET_PATH):
         preparar_dataset_benchmark(DATASET_PATH)
     else:
